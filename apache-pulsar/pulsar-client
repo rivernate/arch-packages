@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+export PULSAR_HOME=/opt/apache-pulsar
+/opt/apache-pulsar/bin/pulsar-client "$@"

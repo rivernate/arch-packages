@@ -1,0 +1,36 @@
+# Maintainer: Nathan Mills<nate@rivernate.com>
+pkgname=apache-pulsar
+pkgver=2.5.0
+pkgrel=1
+pkgdesc="Apache Pulsar client"
+arch=('i686' 'x86_64')
+url=""
+license=('Apache-2.0')
+groups=()
+depends=('jre-openjdk')
+makedepends=()
+optdepends=()
+provides=()
+conflicts=()
+replaces=()
+backup=()
+options=()
+install=
+changelog=
+source=("https://archive.apache.org/dist/pulsar/pulsar-2.5.0/$pkgname-$pkgver-bin.tar.gz" pulsar-admin pulsar-client)
+sha512sums=("05521d296c390896f0e3c6cf07955035dcc58ca1c9fc8451e51eb6d7a02d2963941a3d69025b907300ce2a151695686d977f7c057638ae5e3b394226a7d4a74b" "140919c6039ca4f713e5c53d1b28cd4931ecf9a77eaf2bd68766a305b82a6c39383c4e944310e87dec2343c8ec1fd51fe91a95a26d9e02ebd50773f2d281e17e" "2a5d26b964f3429ba56458c095bf962a23e623006bf55fbc48b5242c5d3906cc3c6c8ec5357a4201138086c20d89ee6bbdc7a60ad4e2a4b1c2545d31718d9f22")
+
+package() {
+ cd "$srcdir/$pkgname-$pkgver"
+ mkdir -p "${pkgdir}/opt"
+ mkdir -p "${pkgdir}/usr/bin"
+ mkdir -p "${pkgdir}/var/log/${pkgname}"
+ cp -R "$srcdir/$pkgname-$pkgver" "$pkgdir/opt"
+ cp "$srcdir/pulsar-admin" "$pkgdir/usr/bin/"
+ cp "$srcdir/pulsar-client" "$pkgdir/usr/bin/"
+
+ ln -s "/opt/${pkgname}-${pkgver}" "${pkgdir}/opt/${pkgname}"
+ ln -s "/var/log/${pkgname}" "${pkgdir}/opt/${pkgname}-${pkgver}/logs"
+
+ chmod -R 777 "${pkgdir}/var/log/${pkgname}"
+}
